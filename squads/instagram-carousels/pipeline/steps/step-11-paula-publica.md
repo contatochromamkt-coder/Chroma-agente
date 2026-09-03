@@ -76,7 +76,7 @@ Status:     Todas as validações passaram. Pronto para dry-run.
 DRY-RUN RESULT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Credenciais: válidas (token expira em 2026-11-01)
-Upload de imagens: 6/6 enviadas ao imgBB
+Upload de imagens: 6/6 enviadas ao Cloudinary
 Containers de mídia: 6/6 criados
 Container do carrossel: criado com sucesso
 Publicação: pulada (modo dry-run)

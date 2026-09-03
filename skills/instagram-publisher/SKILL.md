@@ -2,21 +2,22 @@
 name: instagram-publisher
 description: >
   Publishes Instagram carousel posts from local images.
-  Uploads images to imgBB (requires API key) for public hosting, creates Instagram
-  media containers via the Graph API, and publishes the carousel.
-  Supports 2-10 images per post and retrieves the real post permalink.
+  Uploads images to Cloudinary (requires cloud name + unsigned upload preset) for
+  public hosting, creates Instagram media containers via the Graph API, and
+  publishes the carousel. Supports 2-10 images per post and retrieves the real
+  post permalink.
 description_pt-BR: >
   Publica carrosséis do Instagram a partir de imagens locais.
-  Faz upload das imagens para o imgBB (requer chave de API) como hospedagem pública,
-  cria containers de mídia via Graph API e publica o carrossel.
-  Suporta de 2 a 10 imagens por post e obtém o permalink real.
+  Faz upload das imagens para o Cloudinary (requer cloud name + upload preset
+  não-assinado) como hospedagem pública, cria containers de mídia via Graph API
+  e publica o carrossel. Suporta de 2 a 10 imagens por post e obtém o permalink real.
 description_es: >
   Publica carruseles de Instagram a partir de imágenes locales.
-  Sube las imágenes a imgBB (requiere clave de API) como hosting público, crea
-  contenedores de medios vía Graph API y publica el carrusel.
-  Soporta de 2 a 10 imágenes por post y obtiene el permalink real.
+  Sube las imágenes a Cloudinary (requiere cloud name + upload preset no firmado)
+  como hosting público, crea contenedores de medios vía Graph API y publica el
+  carrusel. Soporta de 2 a 10 imágenes por post y obtiene el permalink real.
 type: script
-version: "1.0.0"
+version: "2.0.0"
 script:
   path: scripts/publish.js
   runtime: node
@@ -24,7 +25,8 @@ script:
 env:
   - INSTAGRAM_ACCESS_TOKEN
   - INSTAGRAM_USER_ID
-  - IMGBB_API_KEY
+  - CLOUDINARY_CLOUD_NAME
+  - CLOUDINARY_UPLOAD_PRESET
 categories: [social-media, publishing, instagram]
 ---
 
@@ -32,7 +34,9 @@ categories: [social-media, publishing, instagram]
 
 ## When to use
 
-Use the Instagram Publisher when you need to publish carousel posts directly to an Instagram Business account. This skill handles the full workflow: uploading images to imgBB (requires your own API key from https://api.imgbb.com/), creating Instagram media containers via the Graph API, and publishing the carousel. It supports 2-10 JPEG images per post.
+Use the Instagram Publisher when you need to publish carousel posts directly to an Instagram Business account. This skill handles the full workflow: uploading images to Cloudinary (a free account works — see Setup below), creating Instagram media containers via the Graph API, and publishing the carousel. It supports 2-10 JPEG images per post.
+
+**Why Cloudinary instead of imgBB:** imgBB was the original image host for this skill, but Meta's Graph API media fetcher was unable to reliably retrieve images hosted there (recurring error 9004/2207052 "can't fetch media"), even when the imgBB URLs were directly reachable from elsewhere. Cloudinary is widely used in production with the Instagram Graph API and does not have this issue.
 
 
 ## Instructions
@@ -64,12 +68,24 @@ Use the Instagram Publisher when you need to publish carousel posts directly to 
 
 ### Setup (first-time)
 
-Copy `.env.example` to `.env` and fill in the two required variables:
+Copy `.env.example` to `.env` and fill in the four required variables:
 
 ```
 INSTAGRAM_ACCESS_TOKEN=
 INSTAGRAM_USER_ID=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_UPLOAD_PRESET=
 ```
+
+#### CLOUDINARY_CLOUD_NAME / CLOUDINARY_UPLOAD_PRESET
+
+1. Crie uma conta gratuita em [cloudinary.com](https://cloudinary.com/) (o plano free cobre bastante volume para posts de Instagram)
+2. No Dashboard, copie o **Cloud Name** (aparece no topo) — isso é `CLOUDINARY_CLOUD_NAME`
+3. Vá em **Settings → Upload → Upload presets → Add upload preset**
+4. Defina **Signing Mode: Unsigned** (permite upload direto sem expor a API secret) e salve
+5. Copie o nome do preset criado — isso é `CLOUDINARY_UPLOAD_PRESET`
+
+Nenhum dos dois valores é secreto no sentido estrito (um upload preset "unsigned" é desenhado para ser usado do lado do cliente), mas ainda assim mantenha-os em `.env` / variáveis de ambiente, não hardcoded.
 
 #### INSTAGRAM_ACCESS_TOKEN
 
@@ -115,5 +131,5 @@ Pré-requisito: conta Instagram Business conectada a uma Página do Facebook, e 
 
 - **Publish Carousel** -- Upload images and publish a carousel post to Instagram
 - **Dry Run** -- Test the full publishing flow without actually posting (use `--dry-run` flag)
-- **Image Upload** -- Upload local JPEG images to imgBB (requires API key)
+- **Image Upload** -- Upload local JPEG images to Cloudinary (requires cloud name + unsigned upload preset)
 - **Status Check** -- Monitor media container processing status before publishing

@@ -22,23 +22,28 @@ export function parseArgs(argv) {
   return args;
 }
 
-// ── Image upload (imgBB) ──────────────────────────────────────
+// ── Image upload (Cloudinary) ───────────────────────────────────
+// Cloudinary is used instead of imgBB because Meta's Graph API media
+// fetcher was unable to reliably retrieve images hosted on imgBB
+// (recurring error 9004/2207052 "can't fetch media"), even when the
+// imgBB URLs were directly reachable. Cloudinary is widely used in
+// production with the Instagram Graph API without this issue.
 
-export async function uploadToImgBB(imagePath, apiKey) {
+export async function uploadToCloudinary(imagePath, cloudName, uploadPreset) {
   const absolutePath = resolve(imagePath);
   const fileBuffer = readFileSync(absolutePath);
-  const base64Image = fileBuffer.toString('base64');
+  const base64Image = `data:image/jpeg;base64,${fileBuffer.toString('base64')}`;
   const form = new FormData();
-  form.append('key', apiKey);
-  form.append('image', base64Image);
-  const res = await fetch('https://api.imgbb.com/1/upload', {
+  form.append('file', base64Image);
+  form.append('upload_preset', uploadPreset);
+  const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
     method: 'POST',
     body: form,
   });
-  if (!res.ok) throw new Error(`imgBB upload failed [${res.status}]: ${await res.text()}`);
+  if (!res.ok) throw new Error(`Cloudinary upload failed [${res.status}]: ${await res.text()}`);
   const json = await res.json();
-  if (!json.success) throw new Error(`imgBB upload failed: ${JSON.stringify(json)}`);
-  return json.data.url;
+  if (!json.secure_url) throw new Error(`Cloudinary upload failed: ${JSON.stringify(json)}`);
+  return json.secure_url;
 }
 
 // ── Instagram Graph API ───────────────────────────────────────
@@ -115,13 +120,14 @@ async function main() {
     throw new Error(`Caption exceeds Instagram's 2200-character limit (got ${caption.length})`);
   }
 
-  const { INSTAGRAM_ACCESS_TOKEN, INSTAGRAM_USER_ID, IMGBB_API_KEY } = process.env;
+  const { INSTAGRAM_ACCESS_TOKEN, INSTAGRAM_USER_ID, CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_PRESET } = process.env;
   if (!INSTAGRAM_ACCESS_TOKEN) throw new Error('INSTAGRAM_ACCESS_TOKEN is not set in environment');
   if (!INSTAGRAM_USER_ID) throw new Error('INSTAGRAM_USER_ID is not set in environment');
-  if (!IMGBB_API_KEY) throw new Error('IMGBB_API_KEY is not set in environment. Get one at https://api.imgbb.com/');
+  if (!CLOUDINARY_CLOUD_NAME) throw new Error('CLOUDINARY_CLOUD_NAME is not set in environment. Get one at https://cloudinary.com/');
+  if (!CLOUDINARY_UPLOAD_PRESET) throw new Error('CLOUDINARY_UPLOAD_PRESET is not set in environment. Create an unsigned upload preset in your Cloudinary dashboard.');
 
-  console.log(`📸 Uploading ${images.length} image(s) to imgBB...`);
-  const imageUrls = await Promise.all(images.map(p => uploadToImgBB(p, IMGBB_API_KEY)));
+  console.log(`📸 Uploading ${images.length} image(s) to Cloudinary...`);
+  const imageUrls = await Promise.all(images.map(p => uploadToCloudinary(p, CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_PRESET)));
   imageUrls.forEach((url, i) => console.log(`   [${i + 1}] ${url}`));
 
   console.log('\n📦 Creating Instagram media containers...');
