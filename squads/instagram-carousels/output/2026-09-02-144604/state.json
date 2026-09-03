@@ -1,0 +1,18 @@
+{
+  "squad": "instagram-carousels",
+  "status": "completed",
+  "step": { "current": 11, "total": 11, "label": "Paula Publica" },
+  "agents": [
+    { "id": "ideator", "name": "Igor Ideia", "icon": "💡", "status": "done", "desk": { "col": 1, "row": 1 } },
+    { "id": "instagram-feed-creator", "name": "Carlos Carrossel", "icon": "🎠", "status": "done", "desk": { "col": 2, "row": 1 } },
+    { "id": "instagram-stories-creator", "name": "Sofia Stories", "icon": "📱", "status": "done", "desk": { "col": 3, "row": 1 } },
+    { "id": "instagram-reels-creator", "name": "Rafael Reels", "icon": "🎬", "status": "done", "desk": { "col": 1, "row": 2 } },
+    { "id": "designer", "name": "Diana Design", "icon": "🎨", "status": "done", "desk": { "col": 2, "row": 2 } },
+    { "id": "reviewer", "name": "Vera Veredito", "icon": "✅", "status": "done", "desk": { "col": 3, "row": 2 } },
+    { "id": "publisher", "name": "Paula Publica", "icon": "📤", "status": "done", "desk": { "col": 1, "row": 3 } }
+  ],
+  "handoff": { "from": "reviewer", "to": "publisher", "message": "Conteúdo aprovado (8.4/8.0/8.1) publicado com sucesso no Instagram.", "completedAt": "2026-09-03T11:05:00Z" },
+  "startedAt": "2026-09-02T14:46:04Z",
+  "updatedAt": "2026-09-03T11:05:00Z",
+  "completedAt": "2026-09-03T11:05:00Z"
+}

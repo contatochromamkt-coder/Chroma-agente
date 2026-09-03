@@ -1,0 +1,47 @@
+squad_code: "instagram-carousels"
+purpose: "Squad de criação de carrosséis para Instagram"
+domain: "content"
+
+company:
+  name: "Chroma Marketing (Chroma MKT)"
+  tone: "Direto, provocativo e inspiracional, mas acessível — posiciona a marca como consultora estratégica"
+  products: "Gestão de redes sociais, tráfego pago, SEO, branding, design criativo, produção de conteúdo, estratégias de marketing personalizadas"
+
+language: "Português (Brasil)"
+
+context:
+  audience: "Público geral"
+  platforms: "Instagram (@chroma_mkt) — feed, stories e reels"
+  tone: "Educativo"
+
+tools_needed:
+  - "image-creator"
+  - "image-ai-generator"
+  - "template-designer"
+  - "instagram-publisher"
+  - "image-fetcher"
+  - "blotato"
+
+investigation:
+  enabled: true
+  profiles:
+    - url: "https://www.instagram.com/leandroladeiran/"
+      platform: "instagram"
+      investigation_mode: "profile_3"
+    - url: "https://www.instagram.com/anagcouto/"
+      platform: "instagram"
+      investigation_mode: "profile_3"
+    - url: "https://www.instagram.com/pedrosobral/"
+      platform: "instagram"
+      investigation_mode: "profile_3"
+    - url: "https://www.instagram.com/tay.ldantas/"
+      platform: "instagram"
+      investigation_mode: "profile_3"
+    - url: "https://www.instagram.com/priscila_zillo/"
+      platform: "instagram"
+      investigation_mode: "profile_3"
+
+target_formats:
+  - "instagram-feed"
+  - "instagram-stories"
+  - "instagram-reels"

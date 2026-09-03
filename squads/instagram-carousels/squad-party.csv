@@ -1,0 +1,11 @@
+id,displayName,title,icon,execution,path
+ideator,Igor Ideia,Gerador de Ângulos Criativos,💡,inline,./agents/ideator.agent.md
+instagram-feed-creator,Carlos Carrossel,Roteirista de Carrossel de Feed,🎠,subagent,./agents/instagram-feed-creator.agent.md
+instagram-stories-creator,Sofia Stories,Roteirista de Stories,📱,subagent,./agents/instagram-stories-creator.agent.md
+instagram-reels-creator,Rafael Reels,Roteirista de Reels,🎬,subagent,./agents/instagram-reels-creator.agent.md
+designer,Diana Design,Designer de Slides,🎨,subagent,./agents/designer.agent.md
+reviewer,Vera Veredito,Revisora de Qualidade,✅,subagent,./agents/reviewer.agent.md
+publisher,Paula Publica,Publicadora no Instagram,📤,subagent,./agents/publisher.agent.md
+researcher,Nina Notícia,Pesquisadora de Pautas Quentes,🔎,subagent,./agents/researcher.agent.md
+static-post-creator,Marina Manchete,Roteirista de Post Estático,📰,subagent,./agents/static-post-creator.agent.md
+scheduler,Agatha Agenda,Montadora de Cronograma Semanal,🗓️,subagent,./agents/scheduler.agent.md

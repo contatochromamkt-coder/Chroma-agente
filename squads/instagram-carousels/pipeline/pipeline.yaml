@@ -1,0 +1,58 @@
+squad: "instagram-carousels"
+name: "Carrossel Chroma"
+
+steps:
+  - id: step-01-tema-do-carrossel
+    file: "pipeline/steps/step-01-tema-do-carrossel.md"
+    type: checkpoint
+
+  - id: step-02-igor-ideia
+    file: "pipeline/steps/step-02-igor-ideia.md"
+    agent: ideator
+
+  - id: step-03-selecionar-angulo
+    file: "pipeline/steps/step-03-selecionar-angulo.md"
+    type: checkpoint
+
+  - id: step-04-carlos-carrossel
+    file: "pipeline/steps/step-04-carlos-carrossel.md"
+    agent: instagram-feed-creator
+    parallel_group: criacao
+
+  - id: step-05-sofia-stories
+    file: "pipeline/steps/step-05-sofia-stories.md"
+    agent: instagram-stories-creator
+    parallel_group: criacao
+
+  - id: step-06-rafael-reels
+    file: "pipeline/steps/step-06-rafael-reels.md"
+    agent: instagram-reels-creator
+    parallel_group: criacao
+
+  - id: step-07-aprovar-conteudo
+    file: "pipeline/steps/step-07-aprovar-conteudo.md"
+    type: checkpoint
+
+  - id: step-08-diana-design
+    file: "pipeline/steps/step-08-diana-design.md"
+    agent: designer
+
+  - id: step-09-vera-veredito
+    file: "pipeline/steps/step-09-vera-veredito.md"
+    agent: reviewer
+    on_reject: step-04-carlos-carrossel
+    max_review_cycles: 3
+
+  - id: step-10-aprovacao-final
+    file: "pipeline/steps/step-10-aprovacao-final.md"
+    type: checkpoint
+
+  - id: step-11-paula-publica
+    file: "pipeline/steps/step-11-paula-publica.md"
+    agent: publisher
+
+checkpoints:
+  - step-01-tema-do-carrossel
+  - step-03-selecionar-angulo
+  - step-07-aprovar-conteudo
+  - step-10-aprovacao-final

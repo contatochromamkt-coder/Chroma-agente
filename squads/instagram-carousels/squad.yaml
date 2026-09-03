@@ -1,0 +1,53 @@
+code: "instagram-carousels"
+name: "Carrossel Chroma"
+description: "Squad de criação de carrosséis, stories e reels educativos para o Instagram da Chroma Marketing (@chroma_mkt), com identidade visual própria e publicação integrada."
+icon: "🎨"
+domain: "content"
+language: "pt-BR"
+
+company:
+  name: "Chroma Marketing (Chroma MKT)"
+
+skills:
+  - web_search
+  - web_fetch
+  - image-creator
+  - image-ai-generator
+  - template-designer
+  - instagram-publisher
+  - image-fetcher
+  - blotato
+
+data:
+  - pipeline/data/research-brief.md
+  - pipeline/data/domain-framework.md
+  - pipeline/data/quality-criteria.md
+  - pipeline/data/output-examples.md
+  - pipeline/data/anti-patterns.md
+  - pipeline/data/tone-of-voice.md
+  - pipeline/data/template-reference.html
+  - pipeline/data/visual-identity.md
+
+pipeline:
+  entrypoint: "pipeline/pipeline.yaml"
+  steps:
+    - "pipeline/steps/step-01-tema-do-carrossel.md"
+    - "pipeline/steps/step-02-igor-ideia.md"
+    - "pipeline/steps/step-03-selecionar-angulo.md"
+    - "pipeline/steps/step-04-carlos-carrossel.md"
+    - "pipeline/steps/step-05-sofia-stories.md"
+    - "pipeline/steps/step-06-rafael-reels.md"
+    - "pipeline/steps/step-07-aprovar-conteudo.md"
+    - "pipeline/steps/step-08-diana-design.md"
+    - "pipeline/steps/step-09-vera-veredito.md"
+    - "pipeline/steps/step-10-aprovacao-final.md"
+    - "pipeline/steps/step-11-paula-publica.md"
+    - "pipeline/steps/step-12-nina-noticia.md"
+    - "pipeline/steps/step-13-marina-manchete.md"
+    - "pipeline/steps/step-14-agatha-agenda.md"
+
+checkpoints:
+  - "pipeline/steps/step-01-tema-do-carrossel.md"
+  - "pipeline/steps/step-03-selecionar-angulo.md"
+  - "pipeline/steps/step-07-aprovar-conteudo.md"
+  - "pipeline/steps/step-10-aprovacao-final.md"

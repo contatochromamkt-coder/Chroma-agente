@@ -1,0 +1,7 @@
+.env
+node_modules/
+dashboard/node_modules/
+dashboard/test-results/
+.playwright-mcp/
+*.log
+_opensquad/_browser_profile/
