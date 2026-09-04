@@ -22,11 +22,13 @@ Framework operacional recomendado pela investigação Sherlock (`consolidated-an
 
 ## CTA Templates (escolha 1 por peça, conforme intenção)
 
-1. **Comentar para desbloquear** (conteúdo de isca/gated): "Comenta '[PALAVRA-CHAVE]' e recebe [oferta]" — maior gerador de comentários encontrado.
-2. **Seguir + promessa de valor** (conteúdo evergreen): slide de fechamento com breve promessa de valor + "Me segue para [benefício]" e legenda "Já salva pra não esquecer."
-3. **Salvar + refletir** (conteúdo prático/listicle): "Já salva pra não esquecer." ou CTA de pergunta ("Pelo que você trabalha pra ter? Comenta aqui.").
+**REGRA OBRIGATÓRIA (definida pelo usuário em 2026-09-03): o CTA de toda peça do squad deve ser sempre um destes três, nunca outro tipo de ação:**
 
-Regra: nunca forçar um CTA "duro" (comentar para desbloquear) em conteúdo puramente reflexivo/thought-leadership — o descompasso entre CTA e intenção soa inautêntico.
+1. **Salvar**: "Já salva pra não esquecer." / "Salva esse post pra consultar depois."
+2. **Compartilhar**: "Manda pra quem precisa ouvir isso." / "Compartilha com alguém que vive isso."
+3. **Seguir o perfil**: "Me segue pra mais conteúdo assim." / "Segue @chroma_mkt pra não perder o próximo."
+
+Uma peça pode combinar 2 desses três (ex.: "Salva e compartilha com alguém que precisa" ou fechamento de carrossel com "Salva" no slide final + "Me segue" na legenda). **Nunca usar CTA de "comentar palavra-chave para desbloquear/receber oferta"** nem qualquer variação que peça comentário, DM ou clique em link — esse tipo de CTA foi descontinuado por decisão do usuário, mesmo tendo sido o maior gerador de comentários na investigação original. Isso vale para carrossel, stories, reel e post estático.
 
 ## Diretrizes de voz
 

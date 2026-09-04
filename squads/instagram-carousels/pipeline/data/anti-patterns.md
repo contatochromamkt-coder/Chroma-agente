@@ -6,7 +6,7 @@ Compilado de `consolidated-analysis.md` (Anti-Patterns da investigação) + `cop
 
 1. **Hooks superlativos vagos sem entrega** — o post mais fraco de @leandroladeiran ("a melhor aula de vendas da sua vida") teve desempenho pior que os outros dois em todas as métricas. Todo hook precisa ser sustentado por conteúdo específico. Nunca prometer o que o corpo do conteúdo não entrega.
 2. **Carrosséis curtos demais (2 slides)** — o carrossel de 2 slides de @anagcouto é raso perto do padrão de 6-10 slides encontrado no restante da amostra. Sub-entrega profundidade educativa. Regra: mínimo 6 slides para carrossel de feed.
-3. **Forçar CTA duro em conteúdo de thought-leadership** — descompassar o estilo de CTA com a intenção do conteúdo (ex.: "comente para desbloquear" em post puramente reflexivo) soa inautêntico. Combinar o CTA com o propósito do conteúdo.
+3. **Usar CTA de "comente para desbloquear"** — descontinuado por decisão do usuário (2026-09-03). O CTA de toda peça do squad é sempre Salvar, Compartilhar ou Seguir o perfil (ver `domain-framework.md`, seção CTA Templates) — nunca pedir comentário, DM ou clique em link.
 4. **Ignorar rampas de entrada pessoais/emocionais** — perfis que só postam conteúdo 100% business/tático, sem qualquer enquadramento relatável ou emocional, mostram engajamento comparativamente menor que posts que misturam storytelling pessoal com a lição.
 
 ## De copywriting.md

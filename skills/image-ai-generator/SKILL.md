@@ -10,8 +10,13 @@ description_pt-BR: >
   Suporta dois modos: test (modelo barato para iteração) e production (modelo de alta qualidade para output final).
   Cuida da construção de prompts, chamadas de API, decodificação base64 e salvamento de arquivos.
   Suporta imagens de referência (logos, mascotes) para geração consistente com a marca.
+description_es: >
+  Genera imágenes via API de Openrouter usando modelos de IA.
+  Soporta dos modos: test (modelo barato para iteración) y production (modelo de alta calidad para output final).
+  Se encarga de la construcción de prompts, llamadas API, decodificación base64 y guardado de archivos.
+  Soporta imágenes de referencia (logos, mascotas) para generación consistente con la marca.
 type: script
-version: "1.0.0"
+version: "1.1.0"
 script:
   path: scripts/generate.py
   runtime: python3
@@ -26,6 +31,8 @@ categories: [assets, images, ai, generation]
 ## When to use
 
 Use the Image Generator when you need to create visual assets from text prompts. This skill calls the Openrouter API with AI image generation models and saves the resulting images locally.
+
+**Validated for ChromaIQ (2026-09-03):** the production model (`google/gemini-3.1-flash-image-preview`) was tested with 3 prompts matching the squad's "glossy chrome/glass object, purple rim lighting" brief (hourglass, breaking chain, dart+target) — all 3 came back at or above the quality bar of the GBCodies reference images, no watermark, no retries needed. This is the recommended provider/model for the squad's mandatory 3D object treatment.
 
 **IMPORTANT: Think twice before generating images.** Image generation costs money and takes time. Before generating:
 1. Check if a suitable image already exists in the squad's assets folder
@@ -55,7 +62,7 @@ Use the Image Generator when you need to create visual assets from text prompts.
 ### Single image generation
 
 ```bash
-python3 skills/image-generator/scripts/generate.py \
+python3 skills/image-ai-generator/scripts/generate.py \
   --prompt "A detailed description of the image to generate" \
   --output "squads/{squad}/output/{run_id}/assets/image-name.jpg" \
   --mode test
@@ -66,7 +73,7 @@ python3 skills/image-generator/scripts/generate.py \
 Use `--reference` to send a local image to the model as visual context. The model will incorporate the referenced image (e.g., a logo or mascot) into the generated output.
 
 ```bash
-python3 skills/image-generator/scripts/generate.py \
+python3 skills/image-ai-generator/scripts/generate.py \
   --prompt "A social media banner featuring the company logo prominently in the center" \
   --output "squads/{squad}/output/{run_id}/assets/banner.jpg" \
   --reference "squads/{squad}/assets/logo.png" \
@@ -78,7 +85,7 @@ Supported reference formats: PNG, JPEG, WEBP, GIF.
 ### Batch generation
 
 ```bash
-python3 skills/image-generator/scripts/generate.py \
+python3 skills/image-ai-generator/scripts/generate.py \
   --batch "squads/{squad}/output/{run_id}/assets/batch.json" \
   --mode production
 ```
@@ -100,6 +107,7 @@ Each item can optionally include a `"reference": "path/to/ref.png"` field.
 - Include "hyper realistic, 4K quality" for photographic styles
 - Include "clean composition" to avoid cluttered outputs
 - Avoid requesting text in images — AI models struggle with text rendering
+- For the ChromaIQ 3D object treatment specifically: "glossy chrome/glass [object], 3D render, dramatic purple rim lighting, isolated on dark background, photorealistic, clean composition" is a validated prompt pattern — reuse this structure, swapping only the object description.
 
 ### Cost awareness
 

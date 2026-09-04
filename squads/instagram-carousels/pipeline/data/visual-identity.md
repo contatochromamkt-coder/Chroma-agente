@@ -4,6 +4,12 @@ Approved template: Template B — "Violet Glass" (2026-09-03)
 
 Este design system substitui o Template A "Editorial Escuro" (fundo #141018, accent rosa #FF3D6E). A marca visual (logo, wordmark) exibida nas peças agora é **ChromaIQ**; a empresa continua se chamando "Chroma Marketing" em textos escritos, legendas e assinaturas de copy — apenas o wordmark/logo nas peças visuais muda para ChromaIQ.
 
+## Processo Diana Design (2026-09-04)
+
+Diana desenvolve até 3 conceitos internamente por capa, pontua cada um (clareza, relação imagem-mensagem, compatibilidade com o sistema, originalidade, legibilidade em miniatura, viabilidade) e executa apenas o de maior nota — nunca mostra as opções ao usuário. Ver `designer.agent.md` para o processo completo (Fases 1-6). Imagens-base geradas por IA ficam em `output/design-assets/`, separadas dos entregáveis finais em `output/slides/`. Todo run gera `output/slides/design-report.md` documentando conceito escolhido, objeto/universo visual, modelo usado, tentativas e notas de qualidade.
+
+**Integração de imagem gerada por IA sem fundo transparente:** o modelo de imagem do OpenRouter (`google/gemini-3.1-flash-image-preview`) não suporta parâmetro de fundo transparente — a imagem-base vem com fundo próprio (geralmente escuro, mas retangular). Para evitar o efeito de "foto colada", aplicar uma máscara de desvanecimento radial no container da imagem: `mask-image: radial-gradient(circle at center, black 46%, transparent 72%)` (+ `-webkit-mask-image` para compatibilidade), fazendo as bordas da imagem se dissolverem no fundo violeta da peça em vez de mostrar um retângulo visível.
+
 ## Reference Analysis (obrigatório antes de criar qualquer peça)
 
 Antes de criar qualquer HTML, Diana deve analisar as 3 imagens de referência em `pipeline/data/visual-references/` (`ref-gbcodies-01-hourglass.jpeg`, `ref-gbcodies-02-chain.jpeg`, `ref-gbcodies-03-dart.jpeg`) e registrar, mentalmente ou em nota curta, os seguintes eixos:
@@ -32,7 +38,7 @@ Antes de criar qualquer HTML, Diana deve analisar as 3 imagens de referência em
 ## Typography
 
 - **Font family:** `'Anton'`, sans-serif (Google Fonts @import) — condensada, peso black, para o headline gigante. Fonte de apoio: `'Archivo'` (pesos 500/600/700) para intro, corpo, legenda e CTA.
-- **Hero/Headline gigante (capa e CTA — carrossel/post estático 1080x1440 ou 1080x1080):** 96-120px, `font-family: 'Anton'`, `line-height: 0.92`, `text-transform: uppercase`, quebrado em exatamente 2 linhas
+- **Hero/Headline gigante (capa e CTA — carrossel/post estático 1080x1440 ou 1080x1080):** 96-190px, `font-family: 'Anton'`, `line-height: 0.92`, `text-transform: uppercase`, quebrado em exatamente 2 linhas
   - Linha 1: `color: #FFFFFF`
   - Linha 2: `background: linear-gradient(135deg, #A855F7, #7C3AED); -webkit-background-clip: text; -webkit-text-fill-color: transparent;`
 - **Hero/Headline em Story/Reel (1080x1920):** 84-104px, mesma regra de 2 linhas e 2 tons
@@ -60,7 +66,15 @@ Todo slide de capa e todo slide de CTA (e, quando fizer sentido para o argumento
 - Dardo + alvo → precisão, execução, meta atingida
 - Para temas sem representação literal óbvia (ex.: "consistência", "clareza de marca"), escolher uma forma abstrata (esfera de vidro, cristal facetado, seta 3D) que preserve o acabamento glass/chrome e o glow roxo de fundo
 
-Em produção, este objeto é gerado via skill `image-ai-generator` (modo `test` para validar composição, `production` para o entregável final) e posicionado atrás/sobreposto ao headline. No `template-reference.html` (arquivo estático de referência), o objeto é aproximado com CSS puro (gradientes radiais, blur, sombras) já que o template não pode invocar geração de imagem — isso está documentado no próprio arquivo com um comentário HTML.
+**Prioridade obrigatória de execução: sempre tentar `image-ai-generator` primeiro.** Este objeto DEVE ser gerado via skill `image-ai-generator` (modo `production` para o entregável final que vai ao ar; modo `test` só para validar composição durante iteração) sempre que a credencial `OPENROUTER_API_KEY` estiver disponível no ambiente. Diana só cai no fallback CSS abaixo quando a geração via IA falhar ou a credencial não existir — e quando isso acontecer, deve registrar explicitamente no relatório da peça que rodou em modo de fallback, para que fique claro que aquela entrega está abaixo do padrão de referência.
+
+**Posicionamento do objeto (regra obrigatória, IA ou fallback):** o objeto nunca fica isolado abaixo ou ao lado do texto — ele deve se sobrepor fisicamente à quebra de linha do headline, exatamente como nas referências (a ampulheta cruza entre "LOSING" e "CLIENTS", a corrente atravessa entre "BREAK" e "AGENCIES", o dardo perfura o meio de "STRONG EXECUTION"). Em termos de CSS: o objeto usa `position:absolute`, dimensionado para cobrir de ~55% a ~90% da largura do frame, centralizado horizontalmente, e posicionado verticalmente para que seu centro coincida com o espaço entre a linha 1 e a linha 2 do headline (z-index ACIMA do texto de sombra/profundidade, mas o headline principal continua legível — usar leve sombra projetada do objeto sobre o fundo, não sobre o texto).
+
+**Fallback CSS (somente quando IA indisponível) — padrão mínimo de qualidade, não apenas uma esfera lisa:**
+- Nunca uma única esfera com apenas um `radial-gradient` — isso lê como placeholder, não como objeto de marca.
+- Construir com no mínimo 2-3 camadas sobrepostas: uma forma-base (esfera, prisma facetado, ou anel/elo alongado para sugerir corrente), um highlight especular pequeno e nítido (não um único glow difuso central), uma sombra de contato projetada no fundo logo abaixo do objeto, e opcionalmente fragmentos menores da mesma forma ao redor (ecoando os "cacos de vidro" das referências).
+- Usar pelo menos 2 tons de roxo/violeta diferentes na mesma forma (não um gradiente radial único de 1 cor) para simular reflexo de ambiente, como as esferas decorativas do canto das referências que têm nuances azul/roxo/branco misturadas.
+- No `template-reference.html` (arquivo estático de referência), o objeto usa este fallback CSS aprimorado, já que o template não pode invocar geração de imagem — isso está documentado no próprio arquivo com um comentário HTML.
 
 ## Two-Tone Giant Headline (regra obrigatória)
 
@@ -83,8 +97,21 @@ Em produção, este objeto é gerado via skill `image-ai-generator` (modo `test`
 
 - Logo: `pipeline/data/visual-references/logo-chromaiq.png` (wordmark ChromaIQ em contorno branco, pensado para fundos escuros)
 - Posição: topo-esquerda (padrão) ou topo-centro em slides de capa mais simétricos
-- Tamanho: altura entre 32-44px (carrossel/story), mantendo proporção do arquivo original
+- **Tamanho (CORRIGIDO — o piso anterior de 32-44px de altura estava pequeno demais e não bate com o peso visual das referências GBCodies):** largura entre 200-260px (carrossel/post estático 1080px de largura), 180-220px em story/reel. Definir por `width` (não `height`) no CSS e deixar a altura em `auto` para preservar a proporção do arquivo — isso evita logos desproporcionalmente pequenos quando a razão de aspecto do PNG é larga. O logo deve ser claramente legível a distância de rolagem no feed, do mesmo jeito que "GBCodies" + "gbcodies.com" são legíveis nas referências — nunca um detalhe discreto no canto.
+- Referência de escala: nas imagens GBCodies analisadas, o wordmark do canto ocupa aproximadamente 12-15% da largura do frame. Use essa proporção como guia (≈150-160px de largura em um frame de 1080px), ajustando para cima se o arquivo do logo tiver bastante espaço negativo interno.
 - **Regra técnica obrigatória (image-design.md — HTML autocontido):** o logo NUNCA é referenciado como caminho de arquivo externo (`<img src="...png">` com caminho relativo/absoluto para disco). Diana deve ler o arquivo `pipeline/data/visual-references/logo-chromaiq.png`, converter para base64 e embutir como `<img src="data:image/png;base64,{conteúdo}">` diretamente no HTML de cada slide que exibe o logo. Isso garante que o HTML renderize de forma autocontida no Playwright sem dependência de arquivo externo.
+
+## Typographic Depth Effect (regra obrigatória — corrige "tipografia chapada")
+
+As referências GBCodies nunca usam texto totalmente plano: toda palavra do headline gigante tem uma segunda camada de texto idêntica, ligeiramente deslocada (offset) atrás da camada principal, criando uma sombra de profundidade/relevo — não um `text-shadow` CSS raso, mas uma **camada de texto duplicada e desalinhada**, na cor do fundo ou num tom mais escuro da mesma paleta, posicionada com `position:absolute` atrás do texto principal (z-index inferior), deslocada ~6-10px para baixo e ~3-5px para a direita. Isso é obrigatório em toda palavra do headline gigante (capa e CTA), em ambas as linhas (branca e gradiente roxo):
+
+```html
+<div style="position:relative;">
+  <span style="position:absolute; top:8px; left:4px; color:#050208; z-index:0; font:inherit;">PALAVRA</span>
+  <span style="position:relative; z-index:1; color:#FFFFFF; font:inherit;">PALAVRA</span>
+</div>
+```
+Para a linha em gradiente, a camada de sombra usa uma cor sólida escura (ex. `#3d1a5c`, um roxo bem escuro) em vez do gradiente — a camada de cima é que leva o `background-clip:text`.
 
 ## Composition Rules
 
