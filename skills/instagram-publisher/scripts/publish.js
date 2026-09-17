@@ -131,9 +131,21 @@ async function main() {
   imageUrls.forEach((url, i) => console.log(`   [${i + 1}] ${url}`));
 
   console.log('\n📦 Creating Instagram media containers...');
-  const childIds = await Promise.all(
-    imageUrls.map(url => createChildContainer(INSTAGRAM_USER_ID, url, INSTAGRAM_ACCESS_TOKEN))
-  );
+  // Created sequentially (not Promise.all) with a short delay between calls.
+  // Firing all child-container creations concurrently was the likely cause of the
+  // recurring "createChildContainer failed [400]: code 9004 / error_subcode 2207052 —
+  // can't fetch media" errors seen in the 2026-09-10 and 2026-09-15 carousel runs
+  // (documented in squads/instagram-carousels/_memory/runs.md): Meta's fetcher hitting
+  // several just-uploaded Cloudinary URLs at once, before CDN propagation settles,
+  // while the single-image publisher (which only ever creates one container) never
+  // hit this failure on the same Cloudinary infrastructure.
+  const childIds = [];
+  for (const url of imageUrls) {
+    const id = await createChildContainer(INSTAGRAM_USER_ID, url, INSTAGRAM_ACCESS_TOKEN);
+    childIds.push(id);
+    console.log(`   [${childIds.length}/${imageUrls.length}] container ${id} created`);
+    await new Promise(r => setTimeout(r, 1500));
+  }
   console.log(`   Container IDs: ${childIds.join(', ')}`);
 
   console.log('\n⏳ Waiting for containers to finish processing...');
