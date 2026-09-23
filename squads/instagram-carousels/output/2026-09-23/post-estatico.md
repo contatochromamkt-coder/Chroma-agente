@@ -1,0 +1,33 @@
+---
+run: 2026-09-23 (Estático de Quarta)
+pauta: pauta-2026-09-21-01.md — Meta muda cobrança do WhatsApp Business API a partir de 1º de outubro (mensagens de atendimento deixam de ser grátis)
+tom: Direto
+hook_template: 5 — News-jacking
+---
+
+=== MANCHETE ===
+WhatsApp vai cobrar. Sua bagunça também.
+
+=== CAPTION ===
+A partir de 1º de outubro, o WhatsApp Business deixa de ser grátis pra atender cliente.
+
+Vale pra quem usa a API (integrações, CRM, automação) — não pro app comum do celular. Mas se sua empresa usa isso, presta atenção nos números:
+
+→ 1.000 mensagens de serviço grátis por número, por mês
+→ Da 1.001 em diante: R$ 0,035 cada
+→ Sem desconto por volume, sem acúmulo pro mês seguinte
+
+Parece pouco. Mas cada "oi, ainda tem estoque?" e cada "manda o catálogo de novo" que sua empresa responde sem funil definido agora tem custo real, mensal, crescente.
+
+Quem já organizou a jornada do cliente — respostas prontas pra dúvida repetida, funil claro de quem é lead de verdade — paga menos e atende melhor.
+
+Quem nunca organizou nada vai descobrir isso na fatura de outubro.
+
+Marketing sem direção vira tentativa. Agora, também vira boleto.
+
+Fonte: Meta for Developers, 16/09/2026
+
+Salva esse post antes que a conta comece a subir pra você.
+
+=== HASHTAGS ===
+#marketingdigital #whatsappbusiness #estrategiadigital #atendimentoaocliente #chromamkt #marketingparapmes #gestaoderedessociais #automacaodeatendimento #pme #funildevendas
